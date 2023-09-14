@@ -12,9 +12,9 @@ from requests_oauthlib import OAuth2Session
 from .sseclient import SSEClient
 
 URL_API = "https://api.home-connect.com"
-ENDPOINT_AUTHORIZE = "/security/oauth/authorize"
-ENDPOINT_TOKEN = "/security/oauth/token"
-ENDPOINT_APPLIANCES = "/api/homeappliances"
+ENDPOINT_AUTHORIZE = "security/oauth/authorize"
+ENDPOINT_TOKEN = "security/oauth/token"
+ENDPOINT_APPLIANCES = "api/homeappliances"
 TIMEOUT_S = 120
 
 LOGGER = logging.getLogger("homeconnect")
@@ -56,7 +56,7 @@ class HomeConnectAPI:
     def refresh_tokens(self) -> Dict[str, Union[str, int]]:
         """Refresh and return new tokens."""
         LOGGER.info("Refreshing tokens ...")
-        token = self._oauth.refresh_token(f"{self.host}{ENDPOINT_TOKEN}")
+        token = self._oauth.refresh_token(f"{self.host}/{ENDPOINT_TOKEN}")
 
         if self.token_updater is not None:
             self.token_updater(token)
